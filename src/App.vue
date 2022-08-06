@@ -1,26 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="p-6 flex flex-col sm:flex-row gap-5">
+    <Button background="blue" @click="openModal(getCities[0])">Заказать в Москву</Button>
+    <Button background="teal" @click="openModal(getCities[1])">Заказать в Санкт-Петербург</Button>
+  </div>
+  <Modal v-if="modalOpen" :closeModal="closeModal" />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Modal from './components/Modal';
+import Button from './components/ui/Button.vue';
+
+import { mapGetters } from 'vuex'
 
 export default {
   name: "App",
-  components: {
-    HelloWorld,
+  components: { Modal, Button },
+  data: () => ({
+    modalOpen: false,
+  }),
+  computed: {
+    ...mapGetters(['getCities'])
   },
+  methods: {
+    closeModal() {
+      this.modalOpen = false;
+    },
+
+    openModal(city) {
+      this.modalOpen = true;
+      this.$store.commit('setCity', city)
+    },
+  }
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

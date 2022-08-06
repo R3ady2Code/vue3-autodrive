@@ -1,5 +1,8 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import store from "./store";
+import { createApp } from 'vue';
+import App from './App.vue';
+import store from './store';
+import './index.css';
 
-createApp(App).use(store).mount("#app");
+import Maska from 'maska';
+
+createApp(App).use(store).use(Maska).mount('#app');
